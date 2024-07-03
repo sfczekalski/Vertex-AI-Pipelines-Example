@@ -3,7 +3,9 @@ import kfp
 
 @kfp.dsl.component
 def train():
-    print("Train")
+    import logging
+    logger = logging.getLogger()
+    logger.info("Train")
 
 
 @kfp.dsl.pipeline(

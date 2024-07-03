@@ -4,6 +4,8 @@
 #
 #    pip-compile requirements.in
 #
+annotated-types==0.7.0
+    # via pydantic
 cachetools==5.3.3
     # via google-auth
 certifi==2024.6.2
@@ -16,30 +18,63 @@ charset-normalizer==3.3.2
 click==8.1.7
     # via kfp
 docstring-parser==0.16
-    # via kfp
-google-api-core==2.19.1
     # via
+    #   google-cloud-aiplatform
+    #   kfp
+google-api-core[grpc]==2.19.1
+    # via
+    #   google-cloud-aiplatform
+    #   google-cloud-bigquery
     #   google-cloud-core
+    #   google-cloud-resource-manager
     #   google-cloud-storage
     #   kfp
 google-auth==2.31.0
     # via
     #   google-api-core
+    #   google-cloud-aiplatform
+    #   google-cloud-bigquery
     #   google-cloud-core
+    #   google-cloud-resource-manager
     #   google-cloud-storage
     #   kfp
     #   kubernetes
+google-cloud-aiplatform==1.57.0
+    # via -r requirements.in
+google-cloud-bigquery==3.25.0
+    # via google-cloud-aiplatform
 google-cloud-core==2.4.1
-    # via google-cloud-storage
+    # via
+    #   google-cloud-bigquery
+    #   google-cloud-storage
+google-cloud-resource-manager==1.12.3
+    # via google-cloud-aiplatform
 google-cloud-storage==2.17.0
-    # via kfp
+    # via
+    #   google-cloud-aiplatform
+    #   kfp
 google-crc32c==1.5.0
     # via
     #   google-cloud-storage
     #   google-resumable-media
 google-resumable-media==2.7.1
-    # via google-cloud-storage
-googleapis-common-protos==1.63.2
+    # via
+    #   google-cloud-bigquery
+    #   google-cloud-storage
+googleapis-common-protos[grpc]==1.63.2
+    # via
+    #   google-api-core
+    #   grpc-google-iam-v1
+    #   grpcio-status
+grpc-google-iam-v1==0.13.1
+    # via google-cloud-resource-manager
+grpcio==1.64.1
+    # via
+    #   google-api-core
+    #   googleapis-common-protos
+    #   grpc-google-iam-v1
+    #   grpcio-status
+grpcio-status==1.62.2
     # via google-api-core
 idna==3.7
     # via requests
@@ -51,14 +86,27 @@ kfp-server-api==2.0.5
     # via kfp
 kubernetes==26.1.0
     # via kfp
+numpy==2.0.0
+    # via shapely
 oauthlib==3.2.2
     # via requests-oauthlib
+packaging==24.1
+    # via
+    #   google-cloud-aiplatform
+    #   google-cloud-bigquery
 proto-plus==1.24.0
-    # via google-api-core
+    # via
+    #   google-api-core
+    #   google-cloud-aiplatform
+    #   google-cloud-resource-manager
 protobuf==4.25.3
     # via
     #   google-api-core
+    #   google-cloud-aiplatform
+    #   google-cloud-resource-manager
     #   googleapis-common-protos
+    #   grpc-google-iam-v1
+    #   grpcio-status
     #   kfp
     #   kfp-pipeline-spec
     #   proto-plus
@@ -68,8 +116,13 @@ pyasn1==0.6.0
     #   rsa
 pyasn1-modules==0.4.0
     # via google-auth
+pydantic==2.8.0
+    # via google-cloud-aiplatform
+pydantic-core==2.20.0
+    # via pydantic
 python-dateutil==2.9.0.post0
     # via
+    #   google-cloud-bigquery
     #   kfp-server-api
     #   kubernetes
 pyyaml==6.0.1
@@ -79,6 +132,7 @@ pyyaml==6.0.1
 requests==2.32.3
     # via
     #   google-api-core
+    #   google-cloud-bigquery
     #   google-cloud-storage
     #   kubernetes
     #   requests-oauthlib
@@ -89,6 +143,8 @@ requests-toolbelt==0.10.1
     # via kfp
 rsa==4.9
     # via google-auth
+shapely==2.0.4
+    # via google-cloud-aiplatform
 six==1.16.0
     # via
     #   kfp-server-api
@@ -96,6 +152,10 @@ six==1.16.0
     #   python-dateutil
 tabulate==0.9.0
     # via kfp
+typing-extensions==4.12.2
+    # via
+    #   pydantic
+    #   pydantic-core
 urllib3==1.26.19
     # via
     #   kfp
