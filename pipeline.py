@@ -1,11 +1,12 @@
 import kfp
+from kfp import dsl
+
+IMAGE = "us-docker.pkg.dev/learning-terraform-428213/gcr.io/pipeline"
 
 
-@kfp.dsl.component
+@dsl.container_component
 def train():
-    import logging
-    logger = logging.getLogger()
-    logger.info("Train")
+    return dsl.ContainerSpec(image=IMAGE, command=["python"], args=["main.py"])
 
 
 @kfp.dsl.pipeline(

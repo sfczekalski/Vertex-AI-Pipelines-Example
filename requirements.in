@@ -1,2 +1,2 @@
-kfp
+kfp==2.8.0
 google-cloud-aiplatform
