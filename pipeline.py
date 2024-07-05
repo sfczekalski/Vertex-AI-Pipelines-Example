@@ -4,9 +4,19 @@ from kfp import dsl
 IMAGE = "us-docker.pkg.dev/learning-terraform-428213/gcr.io/pipeline"
 
 
-@dsl.component
-def pass_name() -> str:
-    return "test"
+@dsl.container_component
+def pass_name(name: dsl.OutputPath(str)):
+    return dsl.ContainerSpec(
+        image="alpine",
+        command=[
+            'sh', '-c', '''RESPONSE="Testing!"\
+                            && echo $RESPONSE\
+                            && mkdir -p $(dirname $0)\
+                            && echo $RESPONSE > $0
+                            '''
+        ],
+        args=[name]
+    )
 
 
 @dsl.container_component
@@ -18,7 +28,7 @@ def train(name: str):
     name="example_pipeline"
 )
 def pipeline():
-    name = pass_name().output
+    name = pass_name().outputs["name"]
     train(name=name)
 
 
