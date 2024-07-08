@@ -1,6 +1,8 @@
 import sys
 import logging
 import pandas as pd
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score
 
 
 logger = logging.getLogger(__name__)
@@ -17,7 +19,10 @@ df_y_train = pd.read_csv(y_train_path)
 df_X_test = pd.read_csv(X_test_path)
 df_y_test = pd.read_csv(y_test_path)
 
-logger.info(df_X_train.shape)
-logger.info(df_y_train.shape)
-logger.info(df_X_test.shape)
-logger.info(df_y_test.shape)
+
+model = DecisionTreeClassifier(random_state=42)
+model.fit(df_X_train, df_y_train)
+
+y_pred = model.predict(df_X_test)
+accuracy = accuracy_score(df_y_test, y_pred)
+logger.info(f"Model accuracy on test set: {round(accuracy, 3)}")

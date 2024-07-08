@@ -48,14 +48,17 @@ def train(
     name="example_pipeline"
 )
 def pipeline():
-    outputs = prepare_data().outputs
+    prepare_data_task = prepare_data()
+    prepare_data_outputs = prepare_data_task.outputs
 
-    train(
-        X_train_dataset=outputs["X_train_dataset"],
-        y_train_dataset=outputs["y_train_dataset"],
-        X_test_dataset=outputs["X_test_dataset"],
-        y_test_dataset=outputs["y_test_dataset"],
+    train_task = train(
+        X_train_dataset=prepare_data_outputs.outputs["X_train_dataset"],
+        y_train_dataset=prepare_data_outputs.outputs["y_train_dataset"],
+        X_test_dataset=prepare_data_outputs.outputs["X_test_dataset"],
+        y_test_dataset=prepare_data_outputs.outputs["y_test_dataset"],
     )
+
+    train_task.set_caching_options(enable_caching=False)
 
 
 if __name__ == "__main__":
