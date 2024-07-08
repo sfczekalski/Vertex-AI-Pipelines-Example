@@ -4,31 +4,58 @@ from kfp import dsl
 IMAGE = "us-docker.pkg.dev/learning-terraform-428213/gcr.io/pipeline"
 
 
-@dsl.component(packages_to_install=["pandas"])
-def pass_data(dataset: dsl.Output[dsl.Dataset]):
-    import pandas as pd
-
-    df = pd.DataFrame.from_dict(
-        {
-            "letter": ["A", "B", "C", "D"],
-            "number": [1, 2, 3, 4]
-        }
+@dsl.container_component
+def prepare_data(
+    X_train_dataset: dsl.Output[dsl.Dataset],
+    y_train_dataset: dsl.Output[dsl.Dataset],
+    X_test_dataset: dsl.Output[dsl.Dataset],
+    y_test_dataset: dsl.Output[dsl.Dataset],
+):
+    return dsl.ContainerSpec(
+        image=IMAGE,
+        command=["python"],
+        args=[
+            "prepare_data.py",
+            X_train_dataset.path,
+            y_train_dataset.path,
+            X_test_dataset.path,
+            y_test_dataset.path,
+        ]
     )
-
-    df.to_csv(dataset.path)
 
 
 @dsl.container_component
-def train(dataset: dsl.Input[dsl.Dataset]):
-    return dsl.ContainerSpec(image=IMAGE, command=["python"], args=["main.py", dataset.path])
+def train(
+    X_train_dataset: dsl.Input[dsl.Dataset],
+    y_train_dataset: dsl.Input[dsl.Dataset],
+    X_test_dataset: dsl.Input[dsl.Dataset],
+    y_test_dataset: dsl.Input[dsl.Dataset],
+):
+    return dsl.ContainerSpec(
+        image=IMAGE,
+        command=["python"],
+        args=[
+            "train.py",
+            X_train_dataset.path,
+            y_train_dataset.path,
+            X_test_dataset.path,
+            y_test_dataset.path,
+        ]
+    )
 
 
 @kfp.dsl.pipeline(
     name="example_pipeline"
 )
 def pipeline():
-    dataset = pass_data().output
-    train(dataset=dataset)
+    outputs = prepare_data().outputs
+
+    train(
+        X_train_dataset=outputs["X_train_dataset"],
+        y_train_dataset=outputs["y_train_dataset"],
+        X_test_dataset=outputs["X_test_dataset"],
+        y_test_dataset=outputs["y_test_dataset"],
+    )
 
 
 if __name__ == "__main__":
