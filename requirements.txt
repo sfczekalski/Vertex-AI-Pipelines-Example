@@ -76,6 +76,8 @@ grpcio-status==1.48.2
     # via google-api-core
 idna==3.7
     # via requests
+joblib==1.4.2
+    # via scikit-learn
 kfp==2.8.0
     # via -r requirements.in
 kfp-pipeline-spec==0.3.0
@@ -85,13 +87,19 @@ kfp-server-api==2.0.5
 kubernetes==25.3.0
     # via kfp
 numpy==2.0.0
-    # via shapely
+    # via
+    #   pandas
+    #   scikit-learn
+    #   scipy
+    #   shapely
 oauthlib==3.2.2
     # via requests-oauthlib
 packaging==24.1
     # via
     #   google-cloud-aiplatform
     #   google-cloud-bigquery
+pandas==2.2.2
+    # via -r requirements.in
 proto-plus==1.24.0
     # via
     #   google-api-core
@@ -121,6 +129,9 @@ python-dateutil==2.9.0.post0
     #   google-cloud-bigquery
     #   kfp-server-api
     #   kubernetes
+    #   pandas
+pytz==2024.1
+    # via pandas
 pyyaml==6.0.1
     # via
     #   kfp
@@ -139,6 +150,10 @@ requests-toolbelt==0.10.1
     # via kfp
 rsa==4.9
     # via google-auth
+scikit-learn==1.5.1
+    # via -r requirements.in
+scipy==1.14.0
+    # via scikit-learn
 shapely==2.0.4
     # via google-cloud-aiplatform
 six==1.16.0
@@ -148,8 +163,12 @@ six==1.16.0
     #   python-dateutil
 tabulate==0.9.0
     # via kfp
+threadpoolctl==3.5.0
+    # via scikit-learn
 typing-extensions==4.12.2
     # via pydantic
+tzdata==2024.1
+    # via pandas
 urllib3==1.26.19
     # via
     #   kfp
