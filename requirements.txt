@@ -4,6 +4,10 @@
 #
 #    pip-compile requirements.in
 #
+alembic==1.13.2
+    # via mlflow
+blinker==1.8.2
+    # via flask
 cachetools==5.3.3
     # via google-auth
 certifi==2024.7.4
@@ -14,11 +18,31 @@ certifi==2024.7.4
 charset-normalizer==3.3.2
     # via requests
 click==8.1.7
-    # via kfp
+    # via
+    #   databricks-cli
+    #   flask
+    #   kfp
+    #   mlflow
+cloudpickle==3.0.0
+    # via mlflow
+databricks-cli==0.18.0
+    # via mlflow
+docker==7.1.0
+    # via mlflow
 docstring-parser==0.16
     # via
     #   google-cloud-aiplatform
     #   kfp
+entrypoints==0.4
+    # via mlflow
+flask==3.0.3
+    # via
+    #   mlflow
+    #   prometheus-flask-exporter
+gitdb==4.0.11
+    # via gitpython
+gitpython==3.1.43
+    # via mlflow
 google-api-core[grpc]==2.19.1
     # via
     #   google-cloud-aiplatform
@@ -37,7 +61,7 @@ google-auth==2.31.0
     #   google-cloud-storage
     #   kfp
     #   kubernetes
-google-cloud-aiplatform==1.58.0
+google-cloud-aiplatform[autologging]==1.58.0
     # via -r requirements.in
 google-cloud-bigquery==3.25.0
     # via google-cloud-aiplatform
@@ -74,8 +98,18 @@ grpcio==1.64.1
     #   grpcio-status
 grpcio-status==1.48.2
     # via google-api-core
+gunicorn==22.0.0
+    # via mlflow
 idna==3.7
     # via requests
+importlib-metadata==8.0.0
+    # via mlflow
+itsdangerous==2.2.0
+    # via flask
+jinja2==3.1.4
+    # via
+    #   flask
+    #   mlflow
 joblib==1.4.2
     # via scikit-learn
 kfp==2.8.0
@@ -86,20 +120,40 @@ kfp-server-api==2.0.5
     # via kfp
 kubernetes==25.3.0
     # via kfp
+mako==1.3.5
+    # via alembic
+markupsafe==2.1.5
+    # via
+    #   jinja2
+    #   mako
+    #   werkzeug
+mlflow==1.27.0
+    # via google-cloud-aiplatform
 numpy==2.0.0
     # via
+    #   mlflow
     #   pandas
     #   scikit-learn
     #   scipy
     #   shapely
 oauthlib==3.2.2
-    # via requests-oauthlib
+    # via
+    #   databricks-cli
+    #   requests-oauthlib
 packaging==24.1
     # via
     #   google-cloud-aiplatform
     #   google-cloud-bigquery
+    #   gunicorn
+    #   mlflow
 pandas==2.2.2
-    # via -r requirements.in
+    # via
+    #   -r requirements.in
+    #   mlflow
+prometheus-client==0.20.0
+    # via prometheus-flask-exporter
+prometheus-flask-exporter==0.23.0
+    # via mlflow
 proto-plus==1.24.0
     # via
     #   google-api-core
@@ -115,6 +169,7 @@ protobuf==4.25.3
     #   grpcio-status
     #   kfp
     #   kfp-pipeline-spec
+    #   mlflow
     #   proto-plus
 pyasn1==0.6.0
     # via
@@ -124,6 +179,8 @@ pyasn1-modules==0.4.0
     # via google-auth
 pydantic==1.10.17
     # via google-cloud-aiplatform
+pyjwt==2.8.0
+    # via databricks-cli
 python-dateutil==2.9.0.post0
     # via
     #   google-cloud-bigquery
@@ -131,17 +188,25 @@ python-dateutil==2.9.0.post0
     #   kubernetes
     #   pandas
 pytz==2024.1
-    # via pandas
+    # via
+    #   mlflow
+    #   pandas
 pyyaml==6.0.1
     # via
     #   kfp
     #   kubernetes
+    #   mlflow
+querystring-parser==1.2.4
+    # via mlflow
 requests==2.32.3
     # via
+    #   databricks-cli
+    #   docker
     #   google-api-core
     #   google-cloud-bigquery
     #   google-cloud-storage
     #   kubernetes
+    #   mlflow
     #   requests-oauthlib
     #   requests-toolbelt
 requests-oauthlib==2.0.0
@@ -153,30 +218,53 @@ rsa==4.9
 scikit-learn==1.5.1
     # via -r requirements.in
 scipy==1.14.0
-    # via scikit-learn
+    # via
+    #   mlflow
+    #   scikit-learn
 shapely==2.0.4
     # via google-cloud-aiplatform
 six==1.16.0
     # via
+    #   databricks-cli
     #   kfp-server-api
     #   kubernetes
     #   python-dateutil
+    #   querystring-parser
+smmap==5.0.1
+    # via gitdb
+sqlalchemy==2.0.31
+    # via
+    #   alembic
+    #   mlflow
+sqlparse==0.5.0
+    # via mlflow
 tabulate==0.9.0
-    # via kfp
+    # via
+    #   databricks-cli
+    #   kfp
 threadpoolctl==3.5.0
     # via scikit-learn
 typing-extensions==4.12.2
-    # via pydantic
+    # via
+    #   alembic
+    #   pydantic
+    #   sqlalchemy
 tzdata==2024.1
     # via pandas
 urllib3==1.26.19
     # via
+    #   databricks-cli
+    #   docker
     #   kfp
     #   kfp-server-api
     #   kubernetes
     #   requests
 websocket-client==1.8.0
     # via kubernetes
+werkzeug==3.0.3
+    # via flask
+zipp==3.19.2
+    # via importlib-metadata
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools

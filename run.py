@@ -7,7 +7,6 @@ with open("config.yml") as f:
 PROJECT_ID = config["project_id"]
 PROJECT_REGION = config["project_region"]
 
-
 aip.init(
     project=PROJECT_ID,
     location=PROJECT_REGION,
@@ -15,7 +14,11 @@ aip.init(
 
 job = aip.PipelineJob(
     display_name="example_model_training",
-    template_path="pipeline.yaml"
+    template_path="pipeline.yaml",
+    parameter_values={
+        "project_id": PROJECT_ID,
+        "project_region": PROJECT_REGION
+    }
 )
 
-job.submit()
+job.run()

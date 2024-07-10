@@ -30,6 +30,8 @@ def train(
     y_train_dataset: dsl.Input[dsl.Dataset],
     X_test_dataset: dsl.Input[dsl.Dataset],
     y_test_dataset: dsl.Input[dsl.Dataset],
+    project_id: str,
+    project_region: str,
     model: dsl.Output[dsl.Model]
 ):
     return dsl.ContainerSpec(
@@ -41,7 +43,9 @@ def train(
             y_train_dataset.path,
             X_test_dataset.path,
             y_test_dataset.path,
-            model.path
+            model.path,
+            project_id,
+            project_region
         ]
     )
 
@@ -49,7 +53,7 @@ def train(
 @kfp.dsl.pipeline(
     name="example_pipeline"
 )
-def pipeline():
+def pipeline(project_id: str, project_region: str):
     prepare_data_task = prepare_data()
     prepare_data_outputs = prepare_data_task.outputs
 
@@ -58,6 +62,8 @@ def pipeline():
         y_train_dataset=prepare_data_outputs["y_train_dataset"],
         X_test_dataset=prepare_data_outputs["X_test_dataset"],
         y_test_dataset=prepare_data_outputs["y_test_dataset"],
+        project_id=project_id,
+        project_region=project_region
     )
 
     train_task.set_caching_options(enable_caching=False)
