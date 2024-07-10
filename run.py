@@ -21,4 +21,4 @@ job = aip.PipelineJob(
     }
 )
 
-job.run()
+job.submit(experiment="example")
