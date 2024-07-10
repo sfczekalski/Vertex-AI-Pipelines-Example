@@ -32,7 +32,6 @@ aip.init(
 run_name = datetime.now().strftime(format="%Y%m%d%H%M%S")
 
 aip.start_run(run=run_name)
-aip.autolog()
 
 model_save_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -49,7 +48,8 @@ y_pred = model.predict(df_X_test)
 accuracy = accuracy_score(df_y_test, y_pred)
 logger.info(f"Model accuracy on test set: {round(accuracy, 3)}")
 
-# aip.log_metrics({"accuracy": accuracy})
+aip.log_metrics({"accuracy": accuracy})
+aip.log_model(model)
 
 joblib.dump(model, model_save_path)
 
