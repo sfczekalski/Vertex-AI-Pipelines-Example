@@ -107,9 +107,7 @@ importlib-metadata==8.0.0
 itsdangerous==2.2.0
     # via flask
 jinja2==3.1.4
-    # via
-    #   flask
-    #   mlflow
+    # via flask
 joblib==1.4.2
     # via scikit-learn
 kfp==2.8.0
@@ -129,8 +127,9 @@ markupsafe==2.1.5
     #   werkzeug
 mlflow==1.27.0
     # via google-cloud-aiplatform
-numpy==2.0.0
+numpy==1.26.4
     # via
+    #   -r requirements.in
     #   mlflow
     #   pandas
     #   scikit-learn
@@ -215,7 +214,7 @@ requests-toolbelt==0.10.1
     # via kfp
 rsa==4.9
     # via google-auth
-scikit-learn==1.5.1
+scikit-learn==1.3.0
     # via -r requirements.in
 scipy==1.14.0
     # via

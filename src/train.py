@@ -49,7 +49,7 @@ accuracy = accuracy_score(df_y_test, y_pred)
 logger.info(f"Model accuracy on test set: {round(accuracy, 3)}")
 
 aip.log_metrics({"accuracy": accuracy})
-aip.log_model(model)
+aip.log_model(model, artifact_id=f"classifier{run_name}")
 
 joblib.dump(model, model_save_path)
 
